@@ -22,26 +22,29 @@ resource "aws_instance" "jenkins-master" {
      Company               = "SoftJourn"
      Project               = "Lessons Terraform"
     }
+  
 }
 
 resource "aws_security_group" "jenkins" {
   name = "Security Group for jenkins"
   description = "Security Group for jenkins"
-
-  ingress {
-    from_port = 8080
-    to_port = 8080
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+   dynamic "ingress" {
+    for_each = ["8080", "80"]
+    content {
+      from_port   = ingress.value
+      to_port     = ingress.value
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
   }
-
-  ingress {
-    from_port = 22
-    to_port = 22
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+ 
+ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["10.10.0.0/16"]
   }
-
+  
   egress {
     from_port = 0
     to_port = 0
