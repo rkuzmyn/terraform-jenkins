@@ -8,6 +8,10 @@ provider "aws" {
   region = "eu-central-1"
 }
 
+resource "aws_eip" "my_static_ip" {
+  instance = aws_instance.jenkins-master.id
+}
+
 resource "aws_instance" "jenkins-master" {
     #count                  = 1
     ami                    = "ami-05cafdf7c9f772ad2"
@@ -60,3 +64,4 @@ ingress {
      Project               = "Lessons Terraform"
     }
 }
+
