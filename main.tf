@@ -27,6 +27,7 @@ resource "aws_instance" "jenkins-master" {
      Project               = "Lessons Terraform"
     }
   
+#  depends_on = [aws_instance.jenkins-master, aws_instance.jenkins-master] # залежить від ресурсів (створюється після них)
 }
 
 resource "aws_security_group" "jenkins" {
