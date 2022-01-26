@@ -8,6 +8,13 @@ provider "aws" {
   region = "eu-central-1"
 }
 
+##############for outputs################
+#data "aws_availability_zones" "working" {}
+#data "aws_caller_identity" "current" {}
+#data "aws_region" "current" {}
+#data "aws_vpcs" "my_vpcs" {}
+##########################################
+
 resource "aws_eip" "my_static_ip" {
   instance = aws_instance.jenkins-master.id
 }
@@ -65,4 +72,3 @@ ingress {
      Project               = "Lessons Terraform"
     }
 }
-
